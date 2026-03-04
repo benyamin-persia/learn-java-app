@@ -1,0 +1,40 @@
+# =============================================================================
+# Learn Java — Version control ignore list
+# Prevents committing build artifacts, secrets, and dependencies.
+# =============================================================================
+
+# Dependencies
+node_modules/
+
+# Environment files (secrets — never commit)
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+dist/
+build/
+*.local
+
+# Logs and runtime
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+*.log
+.cache/
+
+# Optional: keep backend .gitignore minimal; this root file covers the repo.

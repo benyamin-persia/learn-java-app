@@ -1,0 +1,148 @@
+/* Dashboard & week list */
+.dashboard h1,
+.week-view h1,
+.project-list-page h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-intro,
+.week-desc,
+.page-intro {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-auth-hint {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: -0.5rem 0 1.5rem 0;
+}
+
+.dashboard-auth-hint a {
+  font-weight: 500;
+}
+
+.week-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.week-card {
+  display: block;
+  padding: 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.week-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+  text-decoration: none;
+  color: inherit;
+}
+
+.week-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.week-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.week-progress {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.week-title {
+  font-size: 1.2rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.week-desc {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.empty-state {
+  color: var(--text-muted);
+  padding: 2rem;
+}
+
+/* Week view - topic list */
+.topic-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.topic-list li {
+  margin-bottom: 0.5rem;
+}
+
+.topic-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: inherit;
+  text-decoration: none;
+}
+
+.topic-link:hover {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+  color: inherit;
+  text-decoration: none;
+}
+
+.topic-order {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-hover);
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.topic-title {
+  flex: 1;
+}
+
+.topic-status {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.topic-status .done {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: var(--success);
+  color: var(--bg);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}

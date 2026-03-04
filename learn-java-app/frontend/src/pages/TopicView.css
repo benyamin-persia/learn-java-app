@@ -1,0 +1,182 @@
+/* TopicView — Fun, readable, motivational lesson/activities/quiz layout */
+
+.topic-view {
+  --topic-hero-bg: linear-gradient(135deg, var(--bg-card) 0%, rgba(56, 139, 253, 0.08) 100%);
+  --topic-step-active: var(--accent);
+  --topic-step-done: var(--success);
+}
+
+/* Back link: subtle, friendly */
+.topic-view .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.topic-view .back-link:hover {
+  color: var(--accent);
+}
+
+/* Hero: topic title + motivational line */
+.topic-view-hero {
+  background: var(--topic-hero-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.topic-view-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent), var(--success));
+  border-radius: 4px 0 0 4px;
+}
+
+.topic-view-hero h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.topic-view-hero-tagline {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Progress steps: clear, encouraging */
+.topic-steps {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.topic-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.topic-step:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.topic-step:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.topic-step.active {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.topic-step.done {
+  border-color: rgba(63, 185, 80, 0.4);
+  color: var(--success);
+}
+
+.topic-step.done.active {
+  background: rgba(63, 185, 80, 0.12);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.topic-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background: var(--bg-hover);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.topic-step.active .topic-step-num,
+.topic-step.done .topic-step-num {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.topic-step.done .topic-step-num {
+  background: var(--success);
+}
+
+.topic-step-label {
+  font-weight: 600;
+}
+
+/* Main content card */
+.topic-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+/* Motivational CTA under lesson */
+.topic-cta {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.topic-cta-text {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.btn-primary {
+  padding: 0.7rem 1.25rem;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(56, 139, 253, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}

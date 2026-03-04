@@ -1,0 +1,221 @@
+/* Activity blocks: drag-order, match-pairs, multiple-choice */
+.page-loading,
+.page-error {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.page-error {
+  color: var(--error);
+}
+
+.page-error-hint {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.page-error-hint code {
+  background: var(--bg-card);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.activity-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.activity-instruction {
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* Drag order */
+.sortable-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.sortable-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: grab;
+}
+
+.sortable-item:active {
+  cursor: grabbing;
+}
+
+.sortable-item.correct {
+  border-color: var(--success);
+  background: rgba(63, 185, 80, 0.1);
+}
+
+.sortable-item.incorrect {
+  border-color: var(--error);
+  background: rgba(248, 81, 73, 0.1);
+}
+
+.drag-handle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Match pairs */
+.match-pairs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+  .match-pairs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.match-left,
+.match-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.draggable-item {
+  padding: 0.75rem 1rem;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: grab;
+}
+
+.draggable-item.dragging {
+  opacity: 0.6;
+}
+
+.droppable-slot {
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border: 2px dashed var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+}
+
+.droppable-slot.over {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.droppable-slot.filled {
+  border-style: solid;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+/* Multiple choice activity */
+.mc-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.mc-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.mc-option.selected {
+  border-color: var(--accent);
+}
+
+.mc-option.correct {
+  border-color: var(--success);
+  background: rgba(63, 185, 80, 0.1);
+}
+
+.mc-option.incorrect {
+  border-color: var(--error);
+  background: rgba(248, 81, 73, 0.1);
+}
+
+.activity-explanation {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+.activity-explanation.correct {
+  background: rgba(63, 185, 80, 0.15);
+  color: var(--success);
+}
+
+.activity-explanation.incorrect {
+  background: rgba(248, 81, 73, 0.15);
+  color: var(--error);
+}
+
+.activity-list-actions {
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  margin-top: 0.5rem;
+}
+
+.activity-feedback {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
