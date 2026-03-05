@@ -39,10 +39,13 @@ function requireDb(req, res, next) {
 
 // API routes - curriculum is expandable (new weeks = new documents)
 app.use('/api/curriculum', requireDb, curriculumRoutes);
-// Auth: register, login, me (no DB required for JWT verify but we use DB for login/register)
 app.use('/api/auth', requireDb, authRoutes);
-// Progress: optionalAuth sets req.userId from JWT so each user gets their own progress
 app.use('/api/progress', requireDb, optionalAuth, progressRoutes);
+
+// Also mount at root (no /api prefix) so old/cached frontends that call /progress, /auth/register, etc. still work
+app.use('/curriculum', requireDb, curriculumRoutes);
+app.use('/auth', requireDb, authRoutes);
+app.use('/progress', requireDb, optionalAuth, progressRoutes);
 
 // Health check for deployment and debugging (includes MongoDB status)
 app.get('/api/health', (req, res) => {
@@ -53,6 +56,15 @@ app.get('/api/health', (req, res) => {
     status,
     message: 'Learn Java API is running',
     mongodb: dbOk ? 'connected' : { readyState: dbState, hint: 'Start MongoDB and ensure backend ran npm run seed' },
+  });
+});
+app.get('/health', (req, res) => {
+  const dbState = mongoose.connection.readyState;
+  const dbOk = dbState === 1;
+  res.status(dbOk ? 200 : 503).json({
+    status: dbOk ? 'ok' : 'degraded',
+    message: 'Learn Java API is running',
+    mongodb: dbOk ? 'connected' : { readyState: dbState },
   });
 });
 
