@@ -4,14 +4,11 @@
  * can call a backend deployed elsewhere (Railway, Render, etc.). In dev or when
  * not set, uses relative /api (proxied by Vite or same-origin).
  * Backend mounts all routes under /api (e.g. /api/curriculum/weeks, /api/auth/register),
- * so we ensure the base always ends with /api when using an external URL.
+ * so we always build the final URL with /api + path to avoid 404s.
  * Attaches JWT from localStorage when present so progress is saved per logged-in user.
  * Throws errors with message and status so UI can show 500 vs 503 (e.g. DB not connected).
  */
-const rawBase = import.meta.env.VITE_API_URL || '';
-const API_BASE = rawBase
-  ? (rawBase.replace(/\/$/, '').endsWith('/api') ? rawBase.replace(/\/$/, '') : rawBase.replace(/\/$/, '') + '/api')
-  : '/api';
+const BACKEND_ORIGIN = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '').replace(/\/api\/?$/, '');
 const TOKEN_KEY = 'learn-java-token';
 
 function getAuthToken() {
@@ -23,7 +20,8 @@ function getAuthToken() {
 }
 
 async function request(path, options = {}) {
-  const url = `${API_BASE}${path}`;
+  const apiPath = path.startsWith('/api') ? path : `/api${path}`;
+  const url = BACKEND_ORIGIN ? `${BACKEND_ORIGIN}${apiPath}` : apiPath;
   const headers = { 'Content-Type': 'application/json', ...options.headers };
   const token = options.token !== undefined ? options.token : getAuthToken();
   if (token) headers['Authorization'] = `Bearer ${token}`;
