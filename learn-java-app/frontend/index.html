@@ -12,6 +12,17 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Apply saved font size before React so first paint uses user preference (avoids flash on mobile) -->
+    <script>
+      (function() {
+        try {
+          var key = 'learn-java-font-size';
+          var stored = localStorage.getItem(key);
+          var valid = ['small', 'medium', 'large', 'xlarge'].indexOf(stored) !== -1;
+          if (valid && stored !== 'medium') document.documentElement.classList.add('font-size-' + stored);
+        } catch (e) {}
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

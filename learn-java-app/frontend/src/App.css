@@ -24,9 +24,61 @@
   color: var(--accent);
 }
 
+/* Font size control: user-adjustable text size (persists in localStorage); especially useful on mobile */
+.app-font-size {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  padding: 0.35rem 0.6rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-right: 0.5rem;
+}
+.app-font-size-label {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.app-font-size-buttons {
+  display: flex;
+  gap: 0.2rem;
+}
+.app-font-size-btn {
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.4rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.app-font-size-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--bg-hover);
+}
+.app-font-size-btn.active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
 .app-nav {
   display: flex;
-  gap: 1.5rem;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+  justify-content: flex-end;
 }
 
 .app-nav a {
@@ -83,5 +135,14 @@
     flex-direction: column;
     gap: 1rem;
     align-items: flex-start;
+  }
+  /* Larger touch targets for font size on mobile */
+  .app-font-size-btn {
+    min-width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.85rem;
+  }
+  .app-font-size-label {
+    font-size: 0.85rem;
   }
 }

@@ -10,6 +10,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { AuthProvider } from './context/AuthContext';
+import { FontSizeProvider } from './context/FontSizeContext';
 import { ProgressProvider } from './context/ProgressContext';
 import './index.css';
 
@@ -24,9 +25,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter future={routerFutureFlags}>
       <AuthProvider>
-        <ProgressProvider>
-          <App />
-        </ProgressProvider>
+        <FontSizeProvider>
+          <ProgressProvider>
+            <App />
+          </ProgressProvider>
+        </FontSizeProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
