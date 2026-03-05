@@ -23,6 +23,39 @@
   font-weight: 500;
 }
 
+/* Continue where you left off — resume target */
+.dashboard-resume {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: var(--radius);
+}
+.dashboard-resume-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  opacity: 0.95;
+}
+.dashboard-resume-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+}
+.dashboard-resume-link:hover {
+  color: inherit;
+  text-decoration: underline;
+}
+.dashboard-resume-label {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+.dashboard-resume-item {
+  font-size: 1.1rem;
+}
+
 .week-list {
   list-style: none;
   padding: 0;

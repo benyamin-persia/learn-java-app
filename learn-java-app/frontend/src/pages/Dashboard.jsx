@@ -3,13 +3,14 @@
  * Expandable: new weeks added in the backend appear here automatically.
  */
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { curriculumApi } from '../api/client';
 import { useProgress } from '../context/ProgressContext';
 import { useAuth } from '../context/AuthContext';
 import './dashboard.css';
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const [weeks, setWeeks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -48,6 +49,44 @@ export default function Dashboard() {
     return w.topics.filter((t) => t.lessonCompleted && t.quizCompleted).length;
   };
 
+  /**
+   * Find where the user left off: first topic that isn't fully complete (lesson + activities + quiz),
+   * or first project that is started but not completed. Used for "Continue where you left off".
+   */
+  const getResumeTarget = () => {
+    if (!weeks?.length) return null;
+    for (const week of weeks) {
+      const weekProg = progress?.weeks?.find((w) => w.weekSlug === week.slug);
+      const topics = (week.topics || []).sort((a, b) => (a.order || 0) - (b.order || 0));
+      for (const topic of topics) {
+        const t = weekProg?.topics?.find((x) => x.topicSlug === topic.slug);
+        const done = t?.lessonCompleted && t?.activitiesCompleted && t?.quizCompleted;
+        if (!done) {
+          return { type: 'topic', weekSlug: week.slug, weekTitle: week.title, topicSlug: topic.slug, topicTitle: topic.title };
+        }
+      }
+    }
+    const projects = progress?.projects || [];
+    const inProgressProject = projects.find((p) => p.started && !p.completed);
+    if (inProgressProject) {
+      return { type: 'project', projectSlug: inProgressProject.projectSlug };
+    }
+    return null;
+  };
+
+  const resume = getResumeTarget();
+  const resumePath = resume
+    ? resume.type === 'topic'
+      ? `/week/${resume.weekSlug}/topic/${resume.topicSlug}`
+      : `/projects/${resume.projectSlug}`
+    : null;
+
+  // Auto-redirect to where the user left off (or first topic for new users) so they land right in the flow
+  useEffect(() => {
+    if (loading || error || !weeks.length || !resumePath) return;
+    navigate(resumePath, { replace: true });
+  }, [loading, error, weeks.length, resumePath, navigate]);
+
   if (loading) return <div className="page-loading">Loading curriculum…</div>;
   if (error) {
     return (
@@ -65,6 +104,22 @@ export default function Dashboard() {
       <p className="dashboard-intro">
         Learn step by step: read the lesson → do the activities → take the quiz. Then build real projects.
       </p>
+      {resume && (
+        <section className="dashboard-resume">
+          <h2 className="dashboard-resume-title">Continue where you left off</h2>
+          {resume.type === 'topic' ? (
+            <Link to={`/week/${resume.weekSlug}/topic/${resume.topicSlug}`} className="dashboard-resume-link">
+              <span className="dashboard-resume-label">{resume.weekTitle}</span>
+              <span className="dashboard-resume-item">{resume.topicTitle}</span>
+            </Link>
+          ) : (
+            <Link to={`/projects/${resume.projectSlug}`} className="dashboard-resume-link">
+              <span className="dashboard-resume-label">Project</span>
+              <span className="dashboard-resume-item">Continue your project</span>
+            </Link>
+          )}
+        </section>
+      )}
       {!isAuthenticated && (
         <p className="dashboard-auth-hint">
           <Link to="/login">Sign in</Link> or <Link to="/register">create an account</Link> to save your progress across devices.
