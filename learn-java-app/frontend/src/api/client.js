@@ -3,10 +3,15 @@
  * Base URL: uses VITE_API_URL in production (e.g. Vercel env) so the frontend
  * can call a backend deployed elsewhere (Railway, Render, etc.). In dev or when
  * not set, uses relative /api (proxied by Vite or same-origin).
+ * Backend mounts all routes under /api (e.g. /api/curriculum/weeks, /api/auth/register),
+ * so we ensure the base always ends with /api when using an external URL.
  * Attaches JWT from localStorage when present so progress is saved per logged-in user.
  * Throws errors with message and status so UI can show 500 vs 503 (e.g. DB not connected).
  */
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+const rawBase = import.meta.env.VITE_API_URL || '';
+const API_BASE = rawBase
+  ? (rawBase.replace(/\/$/, '').endsWith('/api') ? rawBase.replace(/\/$/, '') : rawBase.replace(/\/$/, '') + '/api')
+  : '/api';
 const TOKEN_KEY = 'learn-java-token';
 
 function getAuthToken() {
